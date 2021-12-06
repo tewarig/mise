@@ -13,7 +13,7 @@ export default function ShopCategories({cardData}){
         <Box margin="10" flexDirection="row" justifyContent="space-evenly" display="flex" >
            {
                cardData.map( data=> (
-                   <ShopCard cardImage={data.photoLink} cardName={data.name} link={data.link} />
+                   <ShopCard  key={data.key} cardImage={data.photoLink} cardName={data.name} link={data.link} />
                ))
            }
  
