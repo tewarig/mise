@@ -11,10 +11,10 @@ export default function ShopCategories({cardData}){
          
         </Box>
         <Box margin="10" flexDirection="row" justifyContent="space-evenly" display="flex" >
-           {
+           {cardData &&(
                cardData.map( data=> (
                    <ShopCard  key={data.key} cardImage={data.photoLink} cardName={data.name} link={data.link} />
-               ))
+               )))
            }
  
         </Box>
