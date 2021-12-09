@@ -22,30 +22,30 @@ export default function Categories({ data }) {
   );
 }
 
-// export async function getStaticProps({ params }) {
-//   const request = await fetch(
-//     "http://localhost:3000/api/categories/" + params.slug
-//   );
-//   const data = await request.json();
-//   if (!data) {
-//     return {
-//       notFound: true,
-//     };
-//   }
+export async function getStaticProps({ params }) {
+  const request = await fetch(
+    process.env.BACKEND_URL+ params.slug
+  );
+  const data = await request.json();
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
 
-//   return {
-//     props: { data }, // will be passed to the page component as props
-//   };
-// }
+  return {
+    props: { data }, // will be passed to the page component as props
+  };
+}
 
-// export async function getStaticPaths() {
-//   return {
-//     paths: [
-//       { params: { slug: "winter" } },
-//       { params: { slug: "party" } },
-//       { params: { slug: "beach" } },
-//       { params: { slug: "traditional" } },
-//     ],
-//     fallback: false,
-//   };
-// }
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { slug: "winter" } },
+      { params: { slug: "party" } },
+      { params: { slug: "beach" } },
+      { params: { slug: "traditional" } },
+    ],
+    fallback: false,
+  };
+}
