@@ -21,19 +21,30 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  useDisclosure
+  useDisclosure,
+  IconButton,
 } from "@chakra-ui/react";
 import axios from "axios";
+import ProductCard from "../comp/productCard";
+import { ImBin } from "react-icons/im";
 
 export default function Admin() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [login, setLogin] = useState(false);
-  const [name,setName] = useState("");
-  const [imageLink1,setImageLink1] = useState("");
-  const [price,setPrice] = useState(0);
+  const [name, setName] = useState("");
+  const [imageLink1, setImageLink1] = useState("");
+  const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
-  const [categories,setCategories] = useState("");
+  const [categories, setCategories] = useState("");
+  const [productsData, setProductsData] = useState();
+
+  const getProducts = async () => {
+    const response = await axios.get("http://localhost:4000/products");
+    const { data } = response;
+    setProductsData(data);
+  };
+
   useEffect(() => {
     const isLogin = localStorage.getItem("Adminlogin");
     if (isLogin) {
@@ -45,8 +56,17 @@ export default function Admin() {
     } else {
       localStorage.setItem("Adminlogin", JSON.stringify(false));
     }
+    getProducts();
   }, [login]);
-
+  
+  const deleteItem =  (pname) =>{
+      delteProduct(pname);
+  }
+  const delteProduct = async(pname)=>{
+    const toDelete = {name: pname}
+    const meow = await axios.delete('http://localhost:4000/products', {data : toDelete});
+    console.log(meow);
+  }
   const checkLogin = () => {
     console.log(email);
     console.log(password);
@@ -59,31 +79,30 @@ export default function Admin() {
       console.log(email);
     }
   };
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
   const image = [];
   image.push(imageLink1);
   const addToDataBase = () => {
-      const product = {
-          name,
-          image,
-        //   imageLink2,
-        //   imageLink3,
-          price,
-          description,
-          categories
-      }
-      axios.post( "http://localhost:4000/products",product).then(console.log("data added"));
-    //   console.log(product);
-  }
-
+    const product = {
+      name,
+      image,
+      
+      price,
+      description,
+      categories,
+    };
+    axios
+      .post("http://localhost:4000/products", product)
+      .then(console.log("data added"));
+  };
 
   return (
     <>
       <NavBar />
       <Drawer
         isOpen={isOpen}
-        placement='right'
+        placement="right"
         onClose={onClose}
         finalFocusRef={btnRef}
       >
@@ -93,26 +112,39 @@ export default function Admin() {
           <DrawerHeader>Add a product </DrawerHeader>
 
           <DrawerBody>
-            <Input margin={1} placeholder='Name' onChange={(e)=>setName(e.target.value)} />
-            <Input  margin={1} placeholder='Image Link '  onChange={(e)=>setImageLink1(e.target.value)}/>
+            <Input
+              margin={1}
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Input
+              margin={1}
+              placeholder="Image Link "
+              onChange={(e) => setImageLink1(e.target.value)}
+            />
             {/* <Input  margin={1} placeholder='Image Link 2' onChange={(e)=>setImageLink2(e.target.value)}/>
             <Input  margin={1} placeholder='Image Link 3'  onChange={(e)=>setImageLink3(e.target.value)}/>
             <Input  margin={1} placeholder='price' onChange={(e)=>setPrice(e.target.value)} /> */}
-            <Input size="lg"  margin={1} placeholder='Description' onChange={(e)=>setDescription(e.target.value)} />
-            <Input   margin={1} placeholder='Categories' onChange={(e)=>setCategories(e.target.value)} />
-
-
-
-
-
-
+            <Input
+              size="lg"
+              margin={1}
+              placeholder="Description"
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <Input
+              margin={1}
+              placeholder="Categories"
+              onChange={(e) => setCategories(e.target.value)}
+            />
           </DrawerBody>
 
           <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={onClose}>
+            <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme='blue' onClick={addToDataBase}>Save</Button>
+            <Button colorScheme="blue" onClick={addToDataBase}>
+              Save
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
@@ -139,9 +171,31 @@ export default function Admin() {
             >
               <Flex margin="1em" justifyContent="space-between">
                 <Heading ml="5px"> Products </Heading>
-                <Button  onClick={onOpen}>Add Products</Button>
+                <Button onClick={onOpen}>Add Products</Button>
               </Flex>
               <hr />
+              {productsData &&
+                productsData.map((item) => (
+                  <Box
+                    id={item.id}
+                    margin="6px"
+                    borderRadius="8px"
+                    borderWidth="1px"
+                    padding="8px"
+                  >
+                    <Flex justifyContent="space-between">
+                        <image src={item.image[0]} />
+                      <div>
+                        <h2> Name : {item.name}</h2>
+                        <h3> id : {item._id}</h3>
+                        <h4> Categorie: {item.categories}</h4>
+                      </div>
+                      <Button onClick={()=>(deleteItem(item.name))}> <ImBin/> </Button>
+                    </Flex>
+                  </Box>
+
+                  
+                ))}
             </Box>
           </Flex>
         </>
@@ -158,16 +212,11 @@ export default function Admin() {
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
               <Stack align={"center"}>
                 <Heading fontSize={"4xl"}> Admin </Heading>
-                
+
                 {email}
                 {password}
               </Stack>
-              <Box
-                rounded={"lg"}
-                bg={ "white"}
-                boxShadow={"lg"}
-                p={8}
-              >
+              <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
                 <Stack spacing={4}>
                   <FormControl id="email">
                     <FormLabel>Email address</FormLabel>

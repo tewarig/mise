@@ -25,6 +25,9 @@ router.post("/",async(req,res)=>{
     res.send("data recevied");
 })
 router.delete("/",async(req,res)=>{
+       console.log("delete request");
+       console.log(req.body.name);
+       console.log(req.body);
        const temp = await product.deleteOne({name : req.body.name});
        res.send(temp);
 });
