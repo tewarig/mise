@@ -27,10 +27,9 @@ import {
 import axios from "axios";
 import ProductCard from "../comp/productCard";
 import { ImBin } from "react-icons/im";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 import Router from "next/router";
-
 
 export default function Admin() {
   const [email, setEmail] = useState();
@@ -46,7 +45,9 @@ export default function Admin() {
   const getProducts = async () => {
     const response = await axios.get("http://localhost:4000/products");
     const { data } = response;
-    setProductsData(data);
+    console.log(data);
+    const trimedValue = data.slice(0,6);
+    setProductsData(trimedValue);
   };
 
   useEffect(() => {
@@ -62,18 +63,20 @@ export default function Admin() {
     }
     getProducts();
   }, [login]);
-  
-  const deleteItem =  (pname) =>{
-      delteProduct(pname);
-  }
-  const delteProduct = async(pname)=>{
-    const toDelete = {name: pname}
-    const meow = await axios.delete('http://localhost:4000/products', {data : toDelete});
+
+  const deleteItem = (pname) => {
+    delteProduct(pname);
+  };
+  const delteProduct = async (pname) => {
+    const toDelete = { name: pname };
+    const meow = await axios.delete("http://localhost:4000/products", {
+      data: toDelete,
+    });
     deleted();
-    setTimeout(()=>{
-        Router.reload();
-    },3000);
-  }
+    setTimeout(() => {
+      Router.reload();
+    }, 3000);
+  };
   const checkLogin = () => {
     console.log(email);
     console.log(password);
@@ -94,23 +97,25 @@ export default function Admin() {
     const product = {
       name,
       image,
-       price,
+      price,
       description,
       categories,
     };
     axios
       .post("http://localhost:4000/products", product)
       .then(console.log("data added"));
-      onClose();
-      productAdded();
-      setTimeout(()=>{
+    onClose();
+    productAdded();
+    setTimeout(() => {
       Router.reload();
-      },3000);
-
+    }, 3000);
   };
   const deleted = () => toast("Product removed from the Shop");
   const productAdded = () => toast("Product added to the Shop");
-
+  const redirectToProduct = (e)=>{
+    e.preventDefault()
+    Router.push('admin/product');
+  }
 
   return (
     <>
@@ -133,7 +138,7 @@ export default function Admin() {
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
             />
-              <Input
+            <Input
               margin={1}
               placeholder="Price"
               onChange={(e) => setPrice(e.target.value)}
@@ -205,18 +210,32 @@ export default function Admin() {
                     padding="8px"
                   >
                     <Flex justifyContent="space-between">
-                        <image src={item.image[0]} />
+                      <img height="10%" width="20%" src={item.image[0]} />
                       <div>
                         <h2> Name : {item.name}</h2>
                         <h3> id : {item._id}</h3>
                         <h4> Categorie: {item.categories}</h4>
                       </div>
-                      <Button onClick={()=>(deleteItem(item.name))}> <ImBin/> </Button>
+                      <Button onClick={() => deleteItem(item.name)}>
+                        {" "}
+                        <ImBin />{" "}
+                      </Button>
                     </Flex>
                   </Box>
-
-                  
                 ))}
+
+              <Box
+                margin="6px"
+                borderRadius="8px"
+                borderWidth="1px"
+                padding="8px"
+                align="center"
+              >
+                       
+                       <Button onClick={redirectToProduct}> View All</Button>
+               
+ 
+              </Box>
             </Box>
           </Flex>
         </>
@@ -282,7 +301,7 @@ export default function Admin() {
           </Flex>{" "}
         </>
       )}
-      <ToastContainer/>
+      <ToastContainer />
       <Footer />
     </>
   );
