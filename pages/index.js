@@ -19,9 +19,9 @@ const meowData = [{
   link: '/categories/party',
   key: 2
 } , {
-  name: 'Breach Wear',
+  name: 'Summer Wear',
   photoLink : 'https://images.unsplash.com/photo-1611244806964-91d204d4a2a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhY2glMjBwYXJ0eXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=100',
-  link: '/categories/beach',
+  link: '/categories/summer',
   key: 3
 } ,{
   name: 'Traditional',
