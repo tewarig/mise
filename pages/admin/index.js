@@ -14,7 +14,6 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue,
   Drawer,
   DrawerBody,
   DrawerFooter,
@@ -118,7 +117,7 @@ export default function Admin() {
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
-      {!login ? (
+      {login ? (
         <>
           <Flex margin="5%">
             <Box
@@ -155,7 +154,7 @@ export default function Admin() {
             align={"center"}
             justify={"center"}
             minW={"60vh"}
-            bg={useColorModeValue("gray.50", "gray.800")}
+            bg={"grey.50"}
           >
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
               <Stack align={"center"}>
@@ -166,7 +165,7 @@ export default function Admin() {
               </Stack>
               <Box
                 rounded={"lg"}
-                bg={useColorModeValue("white", "gray.700")}
+                bg={ "white"}
                 boxShadow={"lg"}
                 p={8}
               >
