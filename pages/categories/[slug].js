@@ -14,7 +14,7 @@ export default function Categories({ data }) {
   return (
     <>
       <NavBar />
-      <Heading ml="5%" paddingTop="3%" paddingBottom="2%">
+      <Heading ml="5%" paddingTop="3%" paddingBottom="2%" >
         {slug} wear
         <Divider width="20%" marginTop="1%" />
         <Grid templateColumns='repeat(3, 1fr)' gap={6}>
@@ -26,6 +26,7 @@ export default function Categories({ data }) {
             categories={x.categories}
             name={x.name}
             price={x.price}
+            description={x.description}
           />
         ))}
         </Grid>
