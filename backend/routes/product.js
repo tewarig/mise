@@ -18,7 +18,6 @@ router.post("/",async(req,res)=>{
     const newProduct = new product(req.body);
     try{
         const a1 = await newProduct.save();
-        // res.send(a1);
     }catch(error){
         console.log(error);
     }
@@ -26,7 +25,8 @@ router.post("/",async(req,res)=>{
     res.send("data recevied");
 })
 router.delete("/",async(req,res)=>{
-     console.log(req.body);
+       const temp = await product.deleteOne({name : req.body.name});
+       res.send(temp);
 });
 
 module.exports = router;
