@@ -30,6 +30,13 @@ export default function Admin() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [login, setLogin] = useState(false);
+  const [name,setName] = useState("");
+  const [imageLink1,setImageLink1] = useState("");
+  const [imageLink2,setImageLink2] = useState("");
+  const [imageLink3,setImageLink3] = useState("");
+  const [price,setPrice] = useState(0);
+  const [description, setDescription] = useState("");
+  const [categories,setCategories] = useState("");
   useEffect(() => {
     const isLogin = localStorage.getItem("Adminlogin");
     if (isLogin) {
@@ -57,6 +64,18 @@ export default function Admin() {
   };
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
+  const addToDataBase = () => {
+      const product = {
+          name,
+          imageLink1,
+          imageLink2,
+          imageLink3,
+          price,
+          description,
+          categories
+      }
+      console.log(product);
+  }
 
 
   return (
@@ -74,14 +93,13 @@ export default function Admin() {
           <DrawerHeader>Add a product </DrawerHeader>
 
           <DrawerBody>
-            <Input margin={1} placeholder='Name' />
-            <Input  margin={1} placeholder='Image Link 1' />
-            <Input  margin={1} placeholder='Image Link 2' />
-            <Input  margin={1} placeholder='Image Link 3' />
-            <Input  margin={1} placeholder='Image Link 3' />
-            <Input  margin={1} placeholder='price' />
-            <Input size="lg"  margin={1} placeholder='Description' />
-            <Input   margin={1} placeholder='Categories' />
+            <Input margin={1} placeholder='Name' onChange={(e)=>setName(e.target.value)} />
+            <Input  margin={1} placeholder='Image Link 1'  onChange={(e)=>setImageLink1(e.target.value)}/>
+            <Input  margin={1} placeholder='Image Link 2' onChange={(e)=>setImageLink2(e.target.value)}/>
+            <Input  margin={1} placeholder='Image Link 3'  onChange={(e)=>setImageLink3(e.target.value)}/>
+            <Input  margin={1} placeholder='price' onChange={(e)=>setPrice(e.target.value)} />
+            <Input size="lg"  margin={1} placeholder='Description' onChange={(e)=>setDescription(e.target.value)} />
+            <Input   margin={1} placeholder='Categories' onChange={(e)=>setCategories(e.target.value)} />
 
 
 
@@ -94,7 +112,7 @@ export default function Admin() {
             <Button variant='outline' mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme='blue'>Save</Button>
+            <Button colorScheme='blue' onClick={addToDataBase}>Save</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
