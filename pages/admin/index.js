@@ -27,6 +27,10 @@ import {
 import axios from "axios";
 import ProductCard from "../comp/productCard";
 import { ImBin } from "react-icons/im";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import Router from "next/router";
+
 
 export default function Admin() {
   const [email, setEmail] = useState();
@@ -65,7 +69,10 @@ export default function Admin() {
   const delteProduct = async(pname)=>{
     const toDelete = {name: pname}
     const meow = await axios.delete('http://localhost:4000/products', {data : toDelete});
-    console.log(meow);
+    deleted();
+    setTimeout(()=>{
+        Router.reload();
+    },3000);
   }
   const checkLogin = () => {
     console.log(email);
@@ -87,19 +94,28 @@ export default function Admin() {
     const product = {
       name,
       image,
-      
-      price,
+       price,
       description,
       categories,
     };
     axios
       .post("http://localhost:4000/products", product)
       .then(console.log("data added"));
+      onClose();
+      productAdded();
+      setTimeout(()=>{
+      Router.reload();
+      },3000);
+
   };
+  const deleted = () => toast("Product removed from the Shop");
+  const productAdded = () => toast("Product added to the Shop");
+
 
   return (
     <>
       <NavBar />
+
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -116,6 +132,11 @@ export default function Admin() {
               margin={1}
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
+            />
+              <Input
+              margin={1}
+              placeholder="Price"
+              onChange={(e) => setPrice(e.target.value)}
             />
             <Input
               margin={1}
@@ -261,7 +282,7 @@ export default function Admin() {
           </Flex>{" "}
         </>
       )}
-
+      <ToastContainer/>
       <Footer />
     </>
   );
