@@ -11,6 +11,12 @@ connectDb();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const userRoute = require("./routes/user");
+app.use("/user",cros(),userRoute);
+
+const productRoute = require("./routes/product");
+app.use("/products",cros(),productRoute);
+
 
 
 
