@@ -25,6 +25,7 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import RecentOrders from "../comp/recentOrders";
+import axios from "axios";
 
 export default function Admin() {
   const [email, setEmail] = useState();
@@ -32,8 +33,6 @@ export default function Admin() {
   const [login, setLogin] = useState(false);
   const [name,setName] = useState("");
   const [imageLink1,setImageLink1] = useState("");
-  const [imageLink2,setImageLink2] = useState("");
-  const [imageLink3,setImageLink3] = useState("");
   const [price,setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [categories,setCategories] = useState("");
@@ -64,17 +63,20 @@ export default function Admin() {
   };
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
+  const image = [];
+  image.push(imageLink1);
   const addToDataBase = () => {
       const product = {
           name,
-          imageLink1,
-          imageLink2,
-          imageLink3,
+          image,
+        //   imageLink2,
+        //   imageLink3,
           price,
           description,
           categories
       }
-      console.log(product);
+      axios.post( "http://localhost:4000/products",product).then(console.log("data added"));
+    //   console.log(product);
   }
 
 
@@ -94,10 +96,10 @@ export default function Admin() {
 
           <DrawerBody>
             <Input margin={1} placeholder='Name' onChange={(e)=>setName(e.target.value)} />
-            <Input  margin={1} placeholder='Image Link 1'  onChange={(e)=>setImageLink1(e.target.value)}/>
-            <Input  margin={1} placeholder='Image Link 2' onChange={(e)=>setImageLink2(e.target.value)}/>
+            <Input  margin={1} placeholder='Image Link '  onChange={(e)=>setImageLink1(e.target.value)}/>
+            {/* <Input  margin={1} placeholder='Image Link 2' onChange={(e)=>setImageLink2(e.target.value)}/>
             <Input  margin={1} placeholder='Image Link 3'  onChange={(e)=>setImageLink3(e.target.value)}/>
-            <Input  margin={1} placeholder='price' onChange={(e)=>setPrice(e.target.value)} />
+            <Input  margin={1} placeholder='price' onChange={(e)=>setPrice(e.target.value)} /> */}
             <Input size="lg"  margin={1} placeholder='Description' onChange={(e)=>setDescription(e.target.value)} />
             <Input   margin={1} placeholder='Categories' onChange={(e)=>setCategories(e.target.value)} />
 

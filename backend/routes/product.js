@@ -18,7 +18,7 @@ router.post("/",async(req,res)=>{
     const newProduct = new product(req.body);
     try{
         const a1 = await newProduct.save();
-        res.send(a1);
+        // res.send(a1);
     }catch(error){
         console.log(error);
     }
