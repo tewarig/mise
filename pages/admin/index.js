@@ -1,5 +1,6 @@
 import NavBar from "../comp/navbar";
 import Footer from "../comp/footer";
+import React from "react";
 import { useEffect, useState } from "react";
 import {
   Flex,
@@ -14,7 +15,16 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useDisclosure
 } from "@chakra-ui/react";
+import RecentOrders from "../comp/recentOrders";
 
 export default function Admin() {
   const [email, setEmail] = useState();
@@ -45,10 +55,49 @@ export default function Admin() {
       console.log(email);
     }
   };
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = React.useRef()
+
 
   return (
     <>
       <NavBar />
+      <Drawer
+        isOpen={isOpen}
+        placement='right'
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Add a product </DrawerHeader>
+
+          <DrawerBody>
+            <Input margin={1} placeholder='Name' />
+            <Input  margin={1} placeholder='Image Link 1' />
+            <Input  margin={1} placeholder='Image Link 2' />
+            <Input  margin={1} placeholder='Image Link 3' />
+            <Input  margin={1} placeholder='Image Link 3' />
+            <Input  margin={1} placeholder='price' />
+            <Input size="lg"  margin={1} placeholder='Description' />
+            <Input   margin={1} placeholder='Categories' />
+
+
+
+
+
+
+          </DrawerBody>
+
+          <DrawerFooter>
+            <Button variant='outline' mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme='blue'>Save</Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
       {!login ? (
         <>
           <Flex margin="5%">
@@ -60,10 +109,8 @@ export default function Admin() {
             >
               <Flex margin="1em" justifyContent="space-between">
                 <Heading ml="5px"> Recent Orders </Heading>
-                <Button>Add Order</Button>
               </Flex>
               <hr />
-              bla bla bla
             </Box>
             <Box
               minW="lg"
@@ -74,9 +121,9 @@ export default function Admin() {
             >
               <Flex margin="1em" justifyContent="space-between">
                 <Heading ml="5px"> Products </Heading>
-                <Button>Add Products</Button>
+                <Button  onClick={onOpen}>Add Products</Button>
               </Flex>
-              <hr/>
+              <hr />
             </Box>
           </Flex>
         </>
@@ -93,9 +140,7 @@ export default function Admin() {
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
               <Stack align={"center"}>
                 <Heading fontSize={"4xl"}> Admin </Heading>
-                {/* <Text fontSize={"lg"} color={"gray.600"}>
-              this page is for admin users
-          </Text> */}
+                
                 {email}
                 {password}
               </Stack>
