@@ -25,6 +25,8 @@ router.post("/",async(req,res)=>{
 
     res.send("data recevied");
 })
-
+router.delete("/",async(req,res)=>{
+     console.log(req.body);
+});
 
 module.exports = router;

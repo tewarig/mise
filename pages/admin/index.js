@@ -23,7 +23,6 @@ import {
   DrawerCloseButton,
   useDisclosure
 } from "@chakra-ui/react";
-import RecentOrders from "../comp/recentOrders";
 import axios from "axios";
 
 export default function Admin() {
