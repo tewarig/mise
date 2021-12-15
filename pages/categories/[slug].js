@@ -34,7 +34,10 @@ export async function getStaticProps({ params }) {
   }
 
   return {
-    props: { data }, // will be passed to the page component as props
+    props: { data , 
+      // to revailadte the props
+      revalidate: 10,
+    }, // will be passed to the page component as props
   };
 }
 
@@ -46,6 +49,6 @@ export async function getStaticPaths() {
       { params: { slug: "beach" } },
       { params: { slug: "traditional" } },
     ],
-    fallback: false,
+    fallback: false
   };
 }
