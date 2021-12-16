@@ -29,13 +29,28 @@ import {
 } from "react-icons/bs";
 
 import { useGlobalState } from "../utils.js/state";
+import {useEffect } from "react";
 
 
 export default function NavBar() {
   const { isOpen, onToggle } = useDisclosure();
  
   const state = useGlobalState();
+  useEffect(()=>{
+   const checkLocalStorage = localStorage.getItem('state');
+   if(checkLocalStorage){
+     const data = JSON.parse(checkLocalStorage);
+     if(data.length > state.get().length){
+      console.log(data);
+      data.map(x => state.merge(x))
+     }else{
+      localStorage.setItem('state',JSON.stringify(state.get().value));
 
+     }
+   }else{
+   localStorage.setItem('state',JSON.stringify(state.get().value));
+   }
+  },[state]);
 
   return (
     <Box>
