@@ -31,26 +31,65 @@ import Router from "next/router";
 
 export default function cart() {
   const [productsData, setProductsData] = useState();
+  const [finalProducts , setFinalProducts] = useState();
 
   const deleted = () => toast("Product removed from the Shop");
 
-
   const getProducts = () => {
-    const response = JSON.parse(localStorage.getItem('state'));
+    const response = JSON.parse(localStorage.getItem("state"));
 
-    
     console.log(response);
     setProductsData(response);
+    if(productsData){
+   
+    }
+  };
+  const price = () => {
+    let price = 0;
+    if (productsData) {
+      for (var i = 0; i < productsData.length; i++) {
+        price += productsData[i].data.price;
+      }
+      
+
+      return price;
+    }
+
+    var count = {};
+    
   };
   useEffect(() => {
     getProducts();
+
   }, []);
+  useEffect(()=>{
+    if(productsData){
+        const arrayUniqueByKey = [...new Map(productsData.map(item =>
+            [item.data['name'], item])).values()];
+            setFinalProducts(arrayUniqueByKey);
+        }
+  },[productsData]);
+  const countItems = (array ,itemName) => {
+    let count = 0;
+    console.log(array.length);
+   for(var i=0;i<array.length ;i++){
+       
+         if(itemName == array[i].data.name){
+             count++;
+         }
+   }
+   return count;
+
+  }
   return (
     <>
       <NavBar />
-      <Heading ml="40%" mt="3%" mb="4%" alignSelf="center"> Products in your cart </Heading>
-      {productsData &&
-        productsData.map((item) => (
+      <Heading ml="40%" mt="3%" mb="4%" alignSelf="center">
+        {" "}
+        Products in your cart{" "}- {finalProducts && finalProducts.length}
+      </Heading>
+      {finalProducts &&
+        finalProducts.map((item) => (
           <Box
             id={item.data.id}
             ml="20%"
@@ -61,23 +100,38 @@ export default function cart() {
             alignSelf="center"
             mt="2%"
             mb="3%"
-            
-            
           >
             <Flex justifyContent="space-between">
-              <img height="5%" width="10%" src={item.data.image} />
-              <div>
-                <Heading>{item.data.name}</Heading> 
-              </div>
-              <Button onClick={() => deleteItem(item.data.name)}>
-                {" "}
-                <h3> ₹ {item.data.price}</h3>
-              </Button>
+              <img height="5%" width="10%" src={item.data.image} borderRadius="8px" />
+                <Heading alignSelf="center">{item.data.name}</Heading>
+                <Flex justifyContent="center" flexDirection="row" alignSelf="center">
+                    <Flex alignSelf="center" flexDirection="row">
+              {countItems(productsData,item.data.name)}  x 
+              {" "}
+
+
+                <h3> ₹ {item.data.price}</h3> 
+              </Flex>
+              <Button ml="3px"> ₹{countItems(productsData, item.data.name) * item.data.price} </Button>
+              </Flex>
             </Flex>
           </Box>
         ))}
-
-     <ToastContainer/>
+        <Box 
+        ml="20%"
+        mr="20%"
+        borderRadius="8px"
+        borderWidth="1px"
+        padding="8px"
+        alignSelf="center"
+        mt="2%"
+        mb="3%">
+            <Flex justifyContent="space-between">
+       <Heading alignContent="center" alignSelf="center" >  Total Bill - {price()} </Heading>
+       <Button> Checkout </Button>
+       </Flex>
+        </Box>
+      <ToastContainer />
       <Footer />
     </>
   );
