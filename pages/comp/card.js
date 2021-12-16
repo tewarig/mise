@@ -21,6 +21,10 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useGlobalState } from "../utils.js/state";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 
 export default function ProductSimple({ image, categories, name, price, key ,description }) {
@@ -38,8 +42,12 @@ export default function ProductSimple({ image, categories, name, price, key ,des
         }
          state.merge(product);
          onClose();
+         added();
+
     }
- 
+
+    const added = () => toast.success("Product added");
+
    
   return (
     <Center py={12} key={key} onClick={onOpen}>
@@ -135,6 +143,7 @@ export default function ProductSimple({ image, categories, name, price, key ,des
           </Stack>
         </Stack>
       </Box>
+      <ToastContainer/>
     </Center>
   );
 }

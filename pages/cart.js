@@ -52,7 +52,7 @@ export default function cart() {
       {productsData &&
         productsData.map((item) => (
           <Box
-            id={item.id}
+            id={item.data.id}
             ml="20%"
             mr="20%"
             borderRadius="8px"
@@ -65,13 +65,13 @@ export default function cart() {
             
           >
             <Flex justifyContent="space-between">
-              <img height="5%" width="10%" src={item.image} />
+              <img height="5%" width="10%" src={item.data.image} />
               <div>
-                <Heading>{item.name}</Heading> 
+                <Heading>{item.data.name}</Heading> 
               </div>
-              <Button onClick={() => deleteItem(item.name)}>
+              <Button onClick={() => deleteItem(item.data.name)}>
                 {" "}
-                <h3> ₹ {item.price}</h3>
+                <h3> ₹ {item.data.price}</h3>
               </Button>
             </Flex>
           </Box>
