@@ -148,9 +148,7 @@ export default function Admin() {
               placeholder="Image Link "
               onChange={(e) => setImageLink1(e.target.value)}
             />
-            {/* <Input  margin={1} placeholder='Image Link 2' onChange={(e)=>setImageLink2(e.target.value)}/>
-            <Input  margin={1} placeholder='Image Link 3'  onChange={(e)=>setImageLink3(e.target.value)}/>
-            <Input  margin={1} placeholder='price' onChange={(e)=>setPrice(e.target.value)} /> */}
+           
             <Input
               size="lg"
               margin={1}
