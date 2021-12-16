@@ -28,8 +28,14 @@ import {
   BsFillInfoCircleFill,
 } from "react-icons/bs";
 
+import { useGlobalState } from "../utils.js/state";
+
+
 export default function NavBar() {
   const { isOpen, onToggle } = useDisclosure();
+ 
+  const state = useGlobalState();
+
 
   return (
     <Box>
@@ -100,7 +106,7 @@ export default function NavBar() {
           </Button> */}
         
           <Button> 
-            <Badge colorScheme='green' position="absolute" borderRadius="8px" ml="90%" mt="-50%">0 </Badge>
+            <Badge colorScheme='green' position="absolute" borderRadius="8px" ml="90%" mt="-50%">{state.get().length} </Badge>
             <BsFillCartFill />
           </Button>
         </Stack>

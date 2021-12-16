@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^1.7.2",
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
+    "@hookstate/core": "^3.0.13",
     "axios": "^0.24.0",
     "cypress": "^9.1.1",
     "framer-motion": "^4.1.17",

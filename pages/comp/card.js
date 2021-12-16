@@ -20,11 +20,27 @@ import {
   Input
 } from "@chakra-ui/react";
 import React from "react";
+import { useGlobalState } from "../utils.js/state";
+
 
 export default function ProductSimple({ image, categories, name, price, key ,description }) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
-
+    const state = useGlobalState();
+    const addToCart = () => {
+        const product = {
+            image,
+            categories,
+            name,
+            price,
+            key,
+            description
+        }
+         state.merge(product);
+         onClose();
+    }
+ 
+   
   return (
     <Center py={12} key={key} onClick={onOpen}>
            
@@ -55,7 +71,7 @@ export default function ProductSimple({ image, categories, name, price, key ,des
             <Button variant='outline' mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button color='gray.900'>Add to cart</Button>
+            <Button color='gray.900' onClick={addToCart}>Add to cart</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

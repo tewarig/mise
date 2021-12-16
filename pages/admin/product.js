@@ -32,6 +32,22 @@ import Router from "next/router";
 export default function product() {
   const [productsData, setProductsData] = useState();
 
+  const deleteItem = (pname) => {
+    delteProduct(pname);
+  };
+  const delteProduct = async (pname) => {
+    const toDelete = { name: pname };
+    const meow = await axios.delete("http://localhost:4000/products", {
+      data: toDelete,
+    });
+    deleted();
+    setTimeout(() => {
+      Router.reload();
+    }, 3000);
+  };
+  const deleted = () => toast("Product removed from the Shop");
+
+
   const getProducts = async () => {
     const response = await axios.get("http://localhost:4000/products");
     const { data } = response;
@@ -76,6 +92,7 @@ export default function product() {
           </Box>
         ))}
 
+     <ToastContainer/>
       <Footer />
     </>
   );
