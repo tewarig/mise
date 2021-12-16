@@ -30,19 +30,21 @@ import {
 
 import { useGlobalState } from "../utils.js/state";
 import {useEffect } from "react";
+import { useRouter } from "next/router";
 
 
 export default function NavBar() {
   const { isOpen, onToggle } = useDisclosure();
  
   const state = useGlobalState();
+  const router = useRouter(); 
   useEffect(()=>{
    const checkLocalStorage = localStorage.getItem('state');
    if(checkLocalStorage){
      const data = JSON.parse(checkLocalStorage);
      if(data.length > state.get().length){
       console.log(data);
-      data.map(x => state.merge(x))
+      data.map(x => state.merge(x.data))
      }else{
       localStorage.setItem('state',JSON.stringify(state.get().value));
 
@@ -51,6 +53,9 @@ export default function NavBar() {
    localStorage.setItem('state',JSON.stringify(state.get().value));
    }
   },[state]);
+  const goToCartPage = ()=>{
+    router.push('/cart');
+  }
 
   return (
     <Box>
@@ -120,7 +125,7 @@ export default function NavBar() {
             Sign Up
           </Button> */}
         
-          <Button> 
+          <Button onClick={goToCartPage}> 
             <Badge colorScheme='green' position="absolute" borderRadius="8px" ml="90%" mt="-50%">{state.get().length} </Badge>
             <BsFillCartFill />
           </Button>
