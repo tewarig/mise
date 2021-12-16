@@ -120,11 +120,11 @@ export default function cart() {
               >
                 <Flex alignSelf="center" flexDirection="row">
                   {countItems(productsData, item.data.name)} x{" "}
-                  <h3> ₹ {item.data.price}</h3>
+                  <h3> ${item.data.price}</h3>
                 </Flex>
                 <Button ml="3px">
                   {" "}
-                  ₹{countItems(productsData, item.data.name) *
+                  ${countItems(productsData, item.data.name) *
                     item.data.price}{" "}
                 </Button>
               </Flex>

@@ -62,7 +62,7 @@ export default function ProductSimple({ image, categories, name, price, key ,des
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader> <Heading>{name}</Heading> ₹ {price}</DrawerHeader>
+          <DrawerHeader> <Heading>{name}</Heading> $ {price}</DrawerHeader>
 
           <DrawerBody>
           <Image
@@ -135,10 +135,10 @@ export default function ProductSimple({ image, categories, name, price, key ,des
           </Heading>
           <Stack direction={"row"} align={"center"}>
             <Text fontWeight={800} fontSize={"xl"}>
-              ₹{price}
+              ${price}
             </Text>
             <Text textDecoration={"line-through"} color={"gray.600"}>
-              ₹{price + Math.round(Math.random()) * 1000 + 10}
+              ${price + Math.round(Math.random()) * 1000 + 10}
             </Text>
           </Stack>
         </Stack>

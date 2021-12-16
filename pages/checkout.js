@@ -75,7 +75,7 @@ export default function Index() {
               <Box alignSelf="flex-end">
                 <Button> Pay Now </Button>
               </Box>
-              <Heading> ₹{price()} </Heading>
+              <Heading> ${price()} </Heading>
             </Flex>
 
             {scriptLoaded && 
