@@ -18,7 +18,8 @@ export default function OfferSection() {
           justifyContent="space-evenly"
         >
           <Box
-            width={useBreakpointValue({ base: "50vh", md: "80vh" })}
+            width={useBreakpointValue({ base: "40vh", md: "80vh" })}
+            alignSelf="center"
             borderRadius="8px"
             margin={"5px"}
             backgroundImage="https://images.unsplash.com/photo-1574365569389-a10d488ca3fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
@@ -34,7 +35,8 @@ export default function OfferSection() {
             </Box>
           </Box>
           <Box
-            width={useBreakpointValue({ base: "50vh", md: "80vh" })}
+            width={useBreakpointValue({ base: "40vh", md: "80vh" })}
+            alignSelf="center"
             borderRadius="8px"
             margin={"5px"}
 
