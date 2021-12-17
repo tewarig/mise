@@ -7,10 +7,22 @@ const OrderSchemea = new mongoose.Schema({
        unique: true,
 
    },
-   price: {
+   address: {
        type: String,
-       required: true,
+   },
+   amount: {
+       type: Number
+   },
+   name: {
+       type:String
+   },
+   phoneNumer : {
+      type: String
+   },
+   pin : {
+       type : String
    }
+  
    
 });
 

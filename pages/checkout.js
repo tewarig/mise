@@ -15,9 +15,11 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Index() {
   const { user, error, isLoading } = useUser();
@@ -28,9 +30,6 @@ export default function Index() {
   const [address, setAddress] = useState();
   const [pin, setPin] = useState();
   const [state, setState] = useState();
-
-
-  
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -56,15 +55,51 @@ export default function Index() {
 
     var count = {};
   };
-  
-   const createOrder = () => {
-       onOpen();
-       console.log(name);
-       console.log(phoneNumer);
-       console.log(address);
-       console.log(pin);
-       console.log(state);
-   }
+
+  const notify = () => toast.error("You need to fill all values!");
+
+  const createOrder = () => {
+    if (
+      name == undefined ||
+      phoneNumer == undefined ||
+      address == undefined ||
+      pin == undefined ||
+      state == undefined
+    ) {
+      notify();
+      return;
+    }
+
+    //    onOpen();
+    console.log(name);
+    console.log(phoneNumer);
+    console.log(address);
+    console.log(pin);
+    console.log(state);
+
+    const order = {
+      name,
+      phoneNumer,
+      address,
+      pin,
+      state,
+      amount: price(),
+      email: user.email,
+    };
+    
+  };
+  const orderFinal = ()=>{
+    const order = {
+        name,
+        phoneNumer,
+        address,
+        pin,
+        state,
+        amount: price(),
+        email: user.email,
+      };
+    console.log(orderFinal);  
+  };
 
   if (user) {
     return (
@@ -81,7 +116,7 @@ export default function Index() {
             <DrawerHeader>Payment Methords avaible</DrawerHeader>
 
             <DrawerBody>
-            {scriptLoaded && (
+              {scriptLoaded && (
                 <Box alignContent="center" alignSelf="center">
                   <PayPalButton
                     alignSelf="center"
@@ -132,16 +167,34 @@ export default function Index() {
               we process your order.
             </Box>
             <Box margin="4%">
-              <Input margin="1%" placeholder="Receptionist Name" value={name} onChange={e => setName(e.target.value)}></Input>
+              <Input
+                margin="1%"
+                placeholder="Receptionist Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              ></Input>
               <Input
                 margin="1%"
                 placeholder="Phone Number"
                 type="number"
-                onChange={e => setPhoneNumber(e.target.value)}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               ></Input>
-              <Input margin="1%" placeholder="Address"  onChange={e => setAddress(e.target.value)}/>
-              <Input margin="1%" placeholder="pin" type="number" onChange={e => setPin(e.target.value)} />
-              <Input margin="1%" placeholder="State"  onChange={e => setState(e.target.value)}/>
+              <Input
+                margin="1%"
+                placeholder="Address"
+                onChange={(e) => setAddress(e.target.value)}
+              />
+              <Input
+                margin="1%"
+                placeholder="pin"
+                type="number"
+                onChange={(e) => setPin(e.target.value)}
+              />
+              <Input
+                margin="1%"
+                placeholder="State"
+                onChange={(e) => setState(e.target.value)}
+              />
             </Box>
             <Flex margin="5%" direction="row" justifyContent="space-between">
               <Box alignSelf="flex-end">
@@ -150,10 +203,10 @@ export default function Index() {
                 </Button>
               </Box>
               <Heading> ${price()} </Heading>
-              
             </Flex>
           </Box>
         </div>
+        <ToastContainer />
         <Footer></Footer>
       </>
     );

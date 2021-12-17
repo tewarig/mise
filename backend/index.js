@@ -5,6 +5,7 @@ const connectDb = require('./connectDb');
 
 
 
+
 const app = express();
 const port = process.env.PORT||4000;
 connectDb();
@@ -16,6 +17,9 @@ app.use("/user",cros(),userRoute);
 
 const productRoute = require("./routes/product");
 app.use("/products",cros(),productRoute);
+
+const orderApi = require("./routes/order");
+app.use("/orders",orderApi);
 
 
 
