@@ -28,7 +28,7 @@ import {
   BsFillInfoCircleFill,
 } from "react-icons/bs";
 
-import { useGlobalState } from "../utils.js/state";
+import { useGlobalState } from "../../utils.js/state";
 import {useEffect } from "react";
 import { useRouter } from "next/router";
 import {useUser} from '@auth0/nextjs-auth0';

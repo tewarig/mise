@@ -7,7 +7,7 @@ import user from "../backend/model/user";
 import Link from "next/link";
 import { useEffect  } from "react";
 import { useRouter } from 'next/router'
-import { reSet } from "./utils.js/state";
+import { reSet } from "../utils.js/state";
 
 
 

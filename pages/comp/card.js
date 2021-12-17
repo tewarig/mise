@@ -20,7 +20,7 @@ import {
   Input
 } from "@chakra-ui/react";
 import React from "react";
-import { useGlobalState } from "../utils.js/state";
+import { useGlobalState } from "../../utils.js/state";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
