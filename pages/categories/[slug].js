@@ -37,7 +37,7 @@ export default function Categories({ data }) {
 }
 
 export async function getStaticProps({ params }) {
-  const request = await fetch("http://localhost:4000/products");
+  const request = await fetch( process.env.NEXT_PUBLIC_BACKEND +"/products");
 
   const data = await request.json();
   if (!data) {

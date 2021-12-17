@@ -31,7 +31,7 @@ export default function product() {
   };
   const delteProduct = async (pname) => {
     const toDelete = { name: pname };
-    const meow = await axios.delete("http://localhost:4000/products", {
+    const meow = await axios.delete( process.env.NEXT_PUBLIC_BACKEND+"/products", {
       data: toDelete,
     });
     deleted();
@@ -42,7 +42,7 @@ export default function product() {
   const deleted = () => toast("Product removed from the Shop");
 
   const getProducts = async () => {
-    const response = await axios.get("http://localhost:4000/products");
+    const response = await axios.get( process.env.NEXT_PUBLIC_BACKEND +"/products");
     const { data } = response;
     console.log(data);
     setProductsData(data);

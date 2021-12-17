@@ -43,14 +43,18 @@ export default function Admin() {
   const [orderData, setOrderData] = useState();
 
   const getProducts = async () => {
-    const response = await axios.get("http://localhost:4000/products");
+    const response = await axios.get(
+      process.env.NEXT_PUBLIC_BACKEND + "/products"
+    );
     const { data } = response;
     console.log(data);
     const trimedValue = data.slice(0, 6);
     setProductsData(trimedValue);
   };
   const getOrders = async () => {
-    const response = await axios.get("http://localhost:4000/orders");
+    const response = await axios.get(
+      process.env.NEXT_PUBLIC_BACKEND + "/orders"
+    );
     const { data } = response;
     setOrderData(data);
   };
@@ -60,14 +64,13 @@ export default function Admin() {
     if (isLogin) {
       console.log(isLogin);
       const loginConst = isLogin;
-     
+
       if (loginConst == "true") {
         setLogin(true);
       }
-      if(login){
-        localStorage.setItem("Adminlogin",JSON.stringify(true));
+      if (login) {
+        localStorage.setItem("Adminlogin", JSON.stringify(true));
       }
-     
     } else {
       localStorage.setItem("Adminlogin", JSON.stringify(false));
     }
@@ -80,9 +83,12 @@ export default function Admin() {
   };
   const delteProduct = async (pname) => {
     const toDelete = { name: pname };
-    const meow = await axios.delete("http://localhost:4000/products", {
-      data: toDelete,
-    });
+    const meow = await axios.delete(
+      process.env.NEXT_PUBLIC_BACKEND + "/products",
+      {
+        data: toDelete,
+      }
+    );
     deleted();
     setTimeout(() => {
       Router.reload();
@@ -93,10 +99,10 @@ export default function Admin() {
     console.log(password);
     console.log(process.env.NEXT_PUBLIC_ADMIN_MAIL);
     if (
-      (email == process.env.NEXT_PUBLIC_ADMIN_MAIL) &&
-      (password == process.env.NEXT_PUBLIC_ADMINPASSWORD)
+      email == process.env.NEXT_PUBLIC_ADMIN_MAIL &&
+      password == process.env.NEXT_PUBLIC_ADMINPASSWORD
     ) {
-        setLogin(true);
+      setLogin(true);
     } else {
       console.log(email);
     }
@@ -114,7 +120,7 @@ export default function Admin() {
       categories,
     };
     axios
-      .post("http://localhost:4000/products", product)
+      .post(process.env.NEXT_PUBLIC_BACKEND + "/products", product)
       .then(console.log("data added"));
     onClose();
     productAdded();
@@ -212,11 +218,10 @@ export default function Admin() {
                         <h3> customerEmail : {orders.email}</h3>
                         <h4> amount $ {orders.amount}</h4>
                       </div>
-                     
                     </Flex>
                   </Box>
                 ))}
-                 <Box
+              <Box
                 margin="6px"
                 borderRadius="8px"
                 borderWidth="1px"
@@ -274,7 +279,16 @@ export default function Admin() {
             </Box>
           </Flex>
 
-          <Button alignSelf="center" justifyContent="center" alignItems="center" ml="40%" mb="3%"> Logout </Button>
+          <Button
+            alignSelf="center"
+            justifyContent="center"
+            alignItems="center"
+            ml="40%"
+            mb="3%"
+          >
+            {" "}
+            Logout{" "}
+          </Button>
         </>
       ) : (
         <>

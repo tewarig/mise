@@ -31,7 +31,7 @@ export default function orders() {
  
 
   const getOrders = async () => {
-    const response = await axios.get("http://localhost:4000/orders");
+    const response = await axios.get( process.env.NEXT_PUBLIC_BACKEND +"/orders");
     const { data } = response;
     console.log(data);
     setOrders(data);
