@@ -73,11 +73,7 @@ export default function Index() {
     }
 
        onOpen();
-    // console.log(name);
-    // console.log(phoneNumer);
-    // console.log(address);
-    // console.log(pin);
-    // console.log(state);
+   
 
     const order = {
       name,
@@ -102,6 +98,19 @@ export default function Index() {
 
     axios.post("http://localhost:4000/orders",order);
     localStorage.removeItem('state');
+    let Orders = JSON.parse(localStorage.getItem("order"));
+    if(Orders){
+        Orders.push(order);
+        localStorage.setItem("order",JSON.stringify(Orders));
+
+         
+    }else{
+        let arr = [];
+        arr.push(order);
+        localStorage.setItem("order",JSON.stringify(arr));
+    }
+
+
     Router.push("/orderSucess");
 
   };
