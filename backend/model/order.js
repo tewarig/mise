@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const OrderSchemea = new mongoose.Schema({
    email:{
        type: String,
-       unique: true,
 
    },
    address: {

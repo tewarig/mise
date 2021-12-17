@@ -85,7 +85,7 @@ export default function Index() {
       email: user.email,
     };
   };
-  const orderFinal = () => {
+  const orderFinal = async() => {
     const order = {
       name,
       phoneNumer,
@@ -96,7 +96,8 @@ export default function Index() {
       email: user.email,
     };
 
-    axios.post( process.env.NEXT_PUBLIC_BACKEND+"/orders",order);
+    const orderReq = await axios.post( process.env.NEXT_PUBLIC_BACKEND+"/orders",order);
+    console.log(orderReq);
     localStorage.removeItem('state');
     let Orders = JSON.parse(localStorage.getItem("order"));
     if(Orders){
@@ -136,7 +137,6 @@ export default function Index() {
                     alignSelf="center"
                     amount={price()}
                     onSuccess={(details, data) => {
-                      console.log(details);
                       orderFinal();
 
                       //   return fetch("/paypal-transaction-complete", {
