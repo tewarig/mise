@@ -41,13 +41,19 @@ export default function Admin() {
   const [description, setDescription] = useState("");
   const [categories, setCategories] = useState("");
   const [productsData, setProductsData] = useState();
+  const [orderData, setOrderData] = useState();
 
   const getProducts = async () => {
     const response = await axios.get("http://localhost:4000/products");
     const { data } = response;
     console.log(data);
-    const trimedValue = data.slice(0,6);
+    const trimedValue = data.slice(0, 6);
     setProductsData(trimedValue);
+  };
+  const getOrders = async () => {
+    const response = await axios.get("http://localhost:4000/orders");
+    const { data } = response;
+    setOrderData(data);
   };
 
   useEffect(() => {
@@ -55,13 +61,19 @@ export default function Admin() {
     if (isLogin) {
       console.log(isLogin);
       const loginConst = isLogin;
+     
       if (loginConst == "true") {
         setLogin(true);
       }
+      if(login){
+        localStorage.setItem("Adminlogin",JSON.stringify(true));
+      }
+     
     } else {
       localStorage.setItem("Adminlogin", JSON.stringify(false));
     }
     getProducts();
+    getOrders();
   }, [login]);
 
   const deleteItem = (pname) => {
@@ -80,11 +92,12 @@ export default function Admin() {
   const checkLogin = () => {
     console.log(email);
     console.log(password);
+    console.log(process.env.NEXT_PUBLIC_ADMIN_MAIL);
     if (
-      (email = process.env.AdminMail) &&
-      (password = process.env.AdminPassword)
+      (email == process.env.NEXT_PUBLIC_ADMIN_MAIL) &&
+      (password == process.env.NEXT_PUBLIC_ADMINPASSWORD)
     ) {
-      console.log("You are right");
+        setLogin(true);
     } else {
       console.log(email);
     }
@@ -112,10 +125,10 @@ export default function Admin() {
   };
   const deleted = () => toast("Product removed from the Shop");
   const productAdded = () => toast("Product added to the Shop");
-  const redirectToProduct = (e)=>{
-    e.preventDefault()
-    Router.push('admin/product');
-  }
+  const redirectToProduct = (e) => {
+    e.preventDefault();
+    Router.push("admin/product");
+  };
 
   return (
     <>
@@ -148,7 +161,7 @@ export default function Admin() {
               placeholder="Image Link "
               onChange={(e) => setImageLink1(e.target.value)}
             />
-           
+
             <Input
               size="lg"
               margin={1}
@@ -172,7 +185,7 @@ export default function Admin() {
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
-      {!login ? (
+      {login ? (
         <>
           <Flex margin="5%">
             <Box
@@ -185,6 +198,34 @@ export default function Admin() {
                 <Heading ml="5px"> Recent Orders </Heading>
               </Flex>
               <hr />
+              {orderData &&
+                orderData.map((orders) => (
+                  <Box
+                    minW="lg"
+                    margin="3%"
+                    borderWidth="1px"
+                    borderRadius="lg"
+                    overflow="hidden"
+                  >
+                    <Flex justifyContent="space-between" margin="5%">
+                      <div>
+                        <h2> id : {orders._id}</h2>
+                        <h3> customerEmail : {orders.email}</h3>
+                        <h4> amount $ {orders.amount}</h4>
+                      </div>
+                     
+                    </Flex>
+                  </Box>
+                ))}
+                 <Box
+                margin="6px"
+                borderRadius="8px"
+                borderWidth="1px"
+                padding="8px"
+                align="center"
+              >
+                <Button onClick={redirectToProduct}> View All</Button>
+              </Box>
             </Box>
             <Box
               minW="lg"
@@ -229,13 +270,12 @@ export default function Admin() {
                 padding="8px"
                 align="center"
               >
-                       
-                       <Button onClick={redirectToProduct}> View All</Button>
-               
- 
+                <Button onClick={redirectToProduct}> View All</Button>
               </Box>
             </Box>
           </Flex>
+
+          <Button alignSelf="center" justifyContent="center" alignItems="center" ml="40%" mb="3%"> Logout </Button>
         </>
       ) : (
         <>

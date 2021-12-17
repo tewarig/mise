@@ -23,32 +23,22 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import Router from "next/router";
 
-export default function product() {
-  const [productsData, setProductsData] = useState();
+export default function orders() {
+  const [orders,setOrders] = useState();
 
-  const deleteItem = (pname) => {
-    delteProduct(pname);
-  };
-  const delteProduct = async (pname) => {
-    const toDelete = { name: pname };
-    const meow = await axios.delete("http://localhost:4000/products", {
-      data: toDelete,
-    });
-    deleted();
-    setTimeout(() => {
-      Router.reload();
-    }, 3000);
-  };
-  const deleted = () => toast("Product removed from the Shop");
 
-  const getProducts = async () => {
-    const response = await axios.get("http://localhost:4000/products");
+  
+ 
+
+  const getOrders = async () => {
+    const response = await axios.get("http://localhost:4000/orders");
     const { data } = response;
     console.log(data);
-    setProductsData(data);
-  };
+    setOrders(data);
+
+ };
   useEffect(() => {
-    getProducts();
+   getOrders();
   }, []);
 
   const [allowAcess, setAllowAcess] = useState(false);
@@ -66,11 +56,11 @@ export default function product() {
       <NavBar />
 
       <Heading ml="40%" mt="3%" mb="4%" alignSelf="center">
-        All Products{" "}
+        All Orders{" "}
       </Heading>
-      {productsData &&
+      {orders &&
         allowAcess &&
-        productsData.map((item) => (
+       orders.map((item) => (
           <Box
             id={item.id}
             ml="15%"
@@ -83,17 +73,17 @@ export default function product() {
             mb="3%"
           >
             <Flex justifyContent="space-between">
-              <img height="5%" width="10%" src={item.image[0]} />
               <div>
-                <h2> Name : {item.name}</h2>
-                <h3> id : {item._id}</h3>
-                <h4> Categorie: {item.categories}</h4>
-                <h3> price: {item.price}</h3>
+                <h2> <b> Customer Name : </b>{item.name}</h2>
+                <h3> <b> Order id : </b> {item._id}</h3>
+                <h4>  <b> Costomer Email :  </b>{item.email}</h4>
+                <h3>  <b>  price:   </b> ${item.amount}</h3>
+                <h3>  <b>  phone no :   </b> {item.phoneNumer}</h3>
+                <h3>  <b>  pin :   </b> {item.pin}</h3>
+
+
               </div>
-              <Button onClick={() => deleteItem(item.name)}>
-                {" "}
-                <ImBin />{" "}
-              </Button>
+              
             </Flex>
           </Box>
         ))}
