@@ -8,10 +8,10 @@
 
 <p align="center">
 <a href="https://github.com/tewarig/mise/blob/master/LICENSE" target="blank">
-<img src="https://img.shields.io/github/license/tewarig/Mise?style=flat-square" alt="MeowForm" />
+<img src="https://img.shields.io/github/license/tewarig/Mise?style=flat-square" alt="Mise" />
 </a>
 <a href="https://github.com/tewarig/mise/fork" target="blank">
-<img src="https://img.shields.io/github/forks/tewarig/Mise?style=flat-square" alt="MeowForm forks"/>
+<img src="https://img.shields.io/github/forks/tewarig/Mise?style=flat-square" alt="Mise forks"/>
 </a>
 <a href="https://github.com/tewarig/mise/stargazers" target="blank">
 <img src="https://img.shields.io/github/stars/tewarig/Mise?style=flat-square" alt=" stars"/>
@@ -48,7 +48,7 @@ Simple E Commerce to kick Start your Shop
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1639772184315/WhEie0yUI.gif" />
 </a>
 
-Try the App: [MeowForm](https://www.mise.gauravtewari.xyz/)
+Try the App: [Mise](https://www.mise.gauravtewari.xyz/)
 
 
 
