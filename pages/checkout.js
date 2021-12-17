@@ -96,7 +96,7 @@ export default function Index() {
       email: user.email,
     };
 
-    axios.post("http://localhost:4000/orders",order);
+    axios.post( process.env.NEXT_PUBLIC_BACKEND+"/orders",order);
     localStorage.removeItem('state');
     let Orders = JSON.parse(localStorage.getItem("order"));
     if(Orders){
