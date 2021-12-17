@@ -134,7 +134,7 @@ export default function cart() {
       {!user && (
         <Badge alignSelf="center" alignContent="center" ml="20%">
           {" "}
-          You need to login before Checkout{" "}
+          You need to login before Checkout{" "} <a href="/api/auth/login"> Login </a>
         </Badge>
       )}
 

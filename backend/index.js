@@ -19,7 +19,7 @@ const productRoute = require("./routes/product");
 app.use("/products",cros(),productRoute);
 
 const orderApi = require("./routes/order");
-app.use("/orders",orderApi);
+app.use("/orders",cros(),orderApi);
 
 
 

@@ -14,6 +14,7 @@
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
     "@hookstate/core": "^3.0.13",
+    "@reonomy/react-confetti-explosion": "^1.0.3",
     "@stripe/react-stripe-js": "^1.7.0",
     "@stripe/stripe-js": "^1.22.0",
     "axios": "^0.24.0",

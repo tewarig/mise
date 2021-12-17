@@ -1,4 +1,3 @@
-import { useUser } from "@auth0/nextjs-auth0";
 import { Button } from "@chakra-ui/button";
 import { Input } from "@chakra-ui/input";
 import { Heading, Box, Flex, Textarea } from "@chakra-ui/layout";
@@ -20,6 +19,9 @@ import {
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import Router from "next/router";
+import {useUser} from '@auth0/nextjs-auth0';
 
 export default function Index() {
   const { user, error, isLoading } = useUser();
@@ -70,12 +72,12 @@ export default function Index() {
       return;
     }
 
-    //    onOpen();
-    console.log(name);
-    console.log(phoneNumer);
-    console.log(address);
-    console.log(pin);
-    console.log(state);
+       onOpen();
+    // console.log(name);
+    // console.log(phoneNumer);
+    // console.log(address);
+    // console.log(pin);
+    // console.log(state);
 
     const order = {
       name,
@@ -86,19 +88,22 @@ export default function Index() {
       amount: price(),
       email: user.email,
     };
-    
   };
-  const orderFinal = ()=>{
+  const orderFinal = () => {
     const order = {
-        name,
-        phoneNumer,
-        address,
-        pin,
-        state,
-        amount: price(),
-        email: user.email,
-      };
-    console.log(orderFinal);  
+      name,
+      phoneNumer,
+      address,
+      pin,
+      state,
+      amount: price(),
+      email: user.email,
+    };
+
+    axios.post("http://localhost:4000/orders",order);
+    localStorage.removeItem('state');
+    Router.push("/orderSucess");
+
   };
 
   if (user) {
@@ -122,17 +127,15 @@ export default function Index() {
                     alignSelf="center"
                     amount={price()}
                     onSuccess={(details, data) => {
-                      alert(
-                        "Transaction completed by " +
-                          details.payer.name.given_name
-                      );
+                      console.log(details);
+                      orderFinal();
 
-                      return fetch("/paypal-transaction-complete", {
-                        method: "post",
-                        body: JSON.stringify({
-                          orderID: data.orderID,
-                        }),
-                      });
+                      //   return fetch("/paypal-transaction-complete", {
+                      //     method: "post",
+                      //     body: JSON.stringify({
+                      //       orderID: data.orderID,
+                      //     }),
+                      //   });
                     }}
                   />
                 </Box>
@@ -152,7 +155,6 @@ export default function Index() {
         />
         <NavBar></NavBar>
         <div>
-          {/* Welcome {user.name}! <a href="/api/auth/logout">Logout</a> */}
           <Box
             ml="10%"
             mr="10%"
