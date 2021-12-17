@@ -128,13 +128,14 @@ export default function NavBar() {
             Sign Up
           </Button> */}
          <Flex >
-        {!user && 
+        {/* {!user && 
         <a href="/api/auth/login">
          <Button margin="5px">
             Login
           </Button>
           </a>
-       }
+       } */}
+       
           <Button margin="5px" onClick={goToCartPage}> 
             <Badge colorScheme='green' position="absolute" borderRadius="8px" ml="90%" mt="-50%">{state.get().length} </Badge>
             <BsFillCartFill />
@@ -197,6 +198,49 @@ const DesktopNav = () => {
           </Popover>
         </Box>
       ))}
+      <Box >
+          <Popover trigger={"hover"} placement={"bottom-start"}>
+            <PopoverTrigger>
+              <Link
+                p={2}
+                href={"#"}
+                fontSize={"sm"}
+                fontWeight={500}
+                color={linkColor}
+                _hover={{
+                  textDecoration: "none",
+                  color: linkHoverColor,
+                }}
+              >
+               User
+              </Link>
+            </PopoverTrigger>
+
+          
+              <PopoverContent
+                border={0}
+                boxShadow={"xl"}
+                bg={popoverContentBgColor}
+                p={4}
+                rounded={"xl"}
+                minW={"sm"}
+              >
+                <Stack>
+                  {typeof user !== 'undefined'  ? (
+                    <>
+                    <DesktopSubNav label="view orders" href="/lastOrder" />
+                    <DesktopSubNav label="LogOut" href="/api/auth/logout" />
+                    </>
+                  ) : ( <>
+                    <DesktopSubNav label="Login" href="/api/auth/login" />
+                    </>)
+                  } 
+                  
+                </Stack>
+              </PopoverContent>
+           
+          </Popover>
+        </Box>
       
     </Stack>
   );
