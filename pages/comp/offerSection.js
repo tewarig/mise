@@ -14,7 +14,9 @@ export default function OfferSection() {
                 <Heading> Machure BAG</Heading>
                 Perfect fit for you college
               </Box>
-              <Button marginTop="1vh"> Buy Now</Button>
+              <a href="/categories/bags">
+              <Button marginTop="1vh"> Buy Bags</Button>
+              </a>
             </Box>
           </Box>
           <Box
@@ -27,7 +29,9 @@ export default function OfferSection() {
                 <Heading> Hoodie Sale</Heading>
                 Be the part of the hoodie gang 
               </Box>
+              <a href="/categories/hoodie">
               <Button marginTop="1vh"> View All</Button>
+              </a>
             </Box>
           </Box>
         </Box>

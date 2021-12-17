@@ -62,6 +62,9 @@ export async function getStaticPaths() {
       { params: { slug: "party" } },
       { params: { slug: "summer" } },
       { params: { slug: "traditional" } },
+      {params: {slug: "bags"}},
+      {params: {slug : "hoodie"}},
+      {params: {slug: "tee"}}
     ],
     fallback: false,
   };

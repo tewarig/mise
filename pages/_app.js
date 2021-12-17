@@ -4,7 +4,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
-  
 
   return (
     <UserProvider>

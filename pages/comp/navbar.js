@@ -31,11 +31,13 @@ import {
 import { useGlobalState } from "../utils.js/state";
 import {useEffect } from "react";
 import { useRouter } from "next/router";
+import {useUser} from '@auth0/nextjs-auth0';
+
 
 
 export default function NavBar() {
   const { isOpen, onToggle } = useDisclosure();
- 
+  const { user, error, isLoading } = useUser();
   const state = useGlobalState();
   const router = useRouter(); 
   useEffect(()=>{
@@ -125,11 +127,21 @@ export default function NavBar() {
             }}>
             Sign Up
           </Button> */}
-        
-          <Button onClick={goToCartPage}> 
+         <Flex >
+        {!user && 
+        <a href="/api/auth/login">
+         <Button margin="5px">
+            Login
+          </Button>
+          </a>
+       }
+          <Button margin="5px" onClick={goToCartPage}> 
             <Badge colorScheme='green' position="absolute" borderRadius="8px" ml="90%" mt="-50%">{state.get().length} </Badge>
             <BsFillCartFill />
           </Button>
+          
+          </Flex>
+          
         </Stack>
       </Flex>
 
@@ -185,6 +197,7 @@ const DesktopNav = () => {
           </Popover>
         </Box>
       ))}
+      
     </Stack>
   );
 };
@@ -222,6 +235,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
           <Icon color={"gray.400"} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
+
     </Link>
   );
 };
@@ -287,7 +301,9 @@ const MobileNavItem = ({ label, children, href }) => {
                 {child.label}
               </Link>
             ))}
+            
         </Stack>
+        
       </Collapse>
     </Stack>
   );
@@ -300,12 +316,12 @@ const NAV_ITEMS = [
       {
         label: "Hoodies",
         subLabel: "Cool Hoodies For cool People",
-        href: "/hoodies",
+        href: "/categories/hoodie",
       },
       {
         label: "T-Shirts",
         subLabel: "Awesome Tshirt that suits your personality",
-        href: "/tee",
+        href: "/categories/tee",
       },
     ],
   },
@@ -315,7 +331,7 @@ const NAV_ITEMS = [
       {
         label: "Bags",
         subLabel: "Cool Bags to carry your weight",
-        href: "/Bags",
+        href: "/categories/bags",
       },
       {
         label: "Fedora",
