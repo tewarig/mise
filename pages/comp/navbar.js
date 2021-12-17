@@ -93,7 +93,7 @@ export default function NavBar() {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            <h1>Mesi</h1>
+            <h1>Mise</h1>
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>

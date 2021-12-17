@@ -11,7 +11,7 @@ export default function Footer() {
       <Box backgroundColor={'black'}>
         <Box display="flex" flexDirection="row" justifyContent="space-between">
           <Box color="white" paddingTop="5vh" paddingBottom="10vh" paddingLeft="10vh">
-            © Mesi - Gaurav Tewari
+            © Mise - Gaurav Tewari
           </Box>
           <Box color="white" paddingTop="5vh" paddingBottom="10vh" paddingRight="5vh" display="flex" flexDirection="column">
             <Box>  <AtSignIcon />  {' '} hello@gauravtewari.xyz
