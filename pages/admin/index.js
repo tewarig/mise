@@ -134,6 +134,10 @@ export default function Admin() {
     e.preventDefault();
     Router.push("admin/product");
   };
+  const redirectToOrders = (e) => {
+      e.preventDefault();
+      Router.push("admin/orders");
+  } 
 
   return (
     <>
@@ -228,7 +232,7 @@ export default function Admin() {
                 padding="8px"
                 align="center"
               >
-                <Button onClick={redirectToProduct}> View All</Button>
+                <Button onClick={redirectToOrders}> View All</Button>
               </Box>
             </Box>
             <Box

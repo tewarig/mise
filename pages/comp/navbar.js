@@ -29,7 +29,7 @@ import {
 } from "react-icons/bs";
 
 import { useGlobalState } from "../../utils.js/state";
-import {useEffect } from "react";
+import {useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {useUser} from '@auth0/nextjs-auth0';
 
@@ -38,6 +38,8 @@ import {useUser} from '@auth0/nextjs-auth0';
 export default function NavBar() {
   const { isOpen, onToggle } = useDisclosure();
   const { user, error, isLoading } = useUser();
+  const  [showUser , setUser] = useState(false);
+    console.log(user);
   const state = useGlobalState();
   const router = useRouter(); 
   useEffect(()=>{
@@ -58,6 +60,13 @@ export default function NavBar() {
   const goToCartPage = ()=>{
     router.push('/cart');
   }
+
+  useEffect(()=>{
+
+    if( typeof user !== undefined){
+      setUser(true);
+    }
+  },[user]);
   
 
   return (
@@ -157,6 +166,8 @@ const DesktopNav = () => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
+  const { user, error, isLoading } = useUser();
+
 
   return (
     <Stack direction={"row"} spacing={4}>
@@ -226,7 +237,7 @@ const DesktopNav = () => {
                 minW={"sm"}
               >
                 <Stack>
-                  {typeof user !== 'undefined'  ? (
+                  {  typeof user !== undefined ? (
                     <>
                     <DesktopSubNav label="view orders" href="/lastOrder" />
                     <DesktopSubNav label="LogOut" href="/api/auth/logout" />
