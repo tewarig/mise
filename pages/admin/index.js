@@ -25,7 +25,6 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import axios from "axios";
-import ProductCard from "../comp/productCard";
 import { ImBin } from "react-icons/im";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
