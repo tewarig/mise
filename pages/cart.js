@@ -24,11 +24,11 @@ import {
   useDisclosure,
   IconButton,
   Badge,
-  useMediaQuery 
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { ImBin } from "react-icons/im";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast  ,} from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Router from "next/router";
 import { useUser } from "@auth0/nextjs-auth0";
 
@@ -90,7 +90,7 @@ export default function cart() {
   return (
     <>
       <NavBar />
-      <Heading ml={check ?"40%" : "5%"} mt="3%" mb="4%" alignSelf="center">
+      <Heading ml={check ? "40%" : "5%"} mt="3%" mb="4%" alignSelf="center">
         {" "}
         Products in your cart - {finalProducts && finalProducts.length}
       </Heading>
@@ -98,8 +98,8 @@ export default function cart() {
         finalProducts.map((item) => (
           <Box
             id={item.data.id}
-            ml={check ? "20%" :"0%"} 
-            mr={check ? "20%" :"0%"}
+            ml={check ? "20%" : "0%"}
+            mr={check ? "20%" : "0%"}
             borderRadius="8px"
             borderWidth="1px"
             padding="8px"
@@ -108,13 +108,14 @@ export default function cart() {
             mb="3%"
           >
             <Flex justifyContent="space-between">
-             {check && (<img
-                height="5%"
-                width="10%"
-                src={item.data.image}
-                borderRadius="8px"
-              />)
-             }
+              {check && (
+                <img
+                  height="5%"
+                  width="10%"
+                  src={item.data.image}
+                  borderRadius="8px"
+                />
+              )}
               <Heading alignSelf="center">{item.data.name}</Heading>
               <Flex
                 justifyContent="center"
@@ -135,15 +136,20 @@ export default function cart() {
           </Box>
         ))}
       {!user && (
-        <Badge alignSelf="center" alignContent="center" ml={check ? "20%":"10%"}>
+        <Badge
+          alignSelf="center"
+          alignContent="center"
+          ml={check ? "20%" : "10%"}
+        >
           {" "}
-          You need to login before Checkout{" "} <a href="/api/auth/login"> Login </a>
+          You need to login before Checkout{" "}
+          <a href="/api/auth/login"> Login </a>
         </Badge>
       )}
 
       <Box
-        ml={check ? "20%" :"2%"}
-        mr={check ?"20%" :"2%"}
+        ml={check ? "20%" : "2%"}
+        mr={check ? "20%" : "2%"}
         borderRadius="8px"
         borderWidth="1px"
         padding="8px"

@@ -36,11 +36,14 @@
     <a href="https://github.com/tewarig/mise/issues/new/choose">Request Feature</a>
 </p>
 
+
 ### Introducing Mise   🐱
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1639772184315/WhEie0yUI.gif"/>
 
 Simple E Commerce to kick Start your Shop
 
+<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1642489468686/6DXKwof40.png"  width="70%" height="70%"/>
+<p> Performance </p>
 
 ## 🚀 Demo
 

@@ -1,10 +1,11 @@
 import NavBar from "./comp/navbar";
-import Footer from './comp/footer'
+import Footer from "./comp/footer";
 
-
-export default  function product(){
-    return(<>
-    <NavBar/>
-    <Footer/>
-    </>)
+export default function product() {
+  return (
+    <>
+      <NavBar />
+      <Footer />
+    </>
+  );
 }

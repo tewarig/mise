@@ -21,7 +21,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Router from "next/router";
-import {useUser} from '@auth0/nextjs-auth0';
+import { useUser } from "@auth0/nextjs-auth0";
 
 export default function Index() {
   const { user, error, isLoading } = useUser();
@@ -72,8 +72,7 @@ export default function Index() {
       return;
     }
 
-       onOpen();
-   
+    onOpen();
 
     const order = {
       name,
@@ -85,7 +84,7 @@ export default function Index() {
       email: user.email,
     };
   };
-  const orderFinal = async() => {
+  const orderFinal = async () => {
     const order = {
       name,
       phoneNumer,
@@ -96,24 +95,23 @@ export default function Index() {
       email: user.email,
     };
 
-    const orderReq = await axios.post( process.env.NEXT_PUBLIC_BACKEND+"/orders",order);
+    const orderReq = await axios.post(
+      process.env.NEXT_PUBLIC_BACKEND + "/orders",
+      order
+    );
     console.log(orderReq);
-    localStorage.removeItem('state');
+    localStorage.removeItem("state");
     let Orders = JSON.parse(localStorage.getItem("order"));
-    if(Orders){
-        Orders.push(order);
-        localStorage.setItem("order",JSON.stringify(Orders));
-
-         
-    }else{
-        let arr = [];
-        arr.push(order);
-        localStorage.setItem("order",JSON.stringify(arr));
+    if (Orders) {
+      Orders.push(order);
+      localStorage.setItem("order", JSON.stringify(Orders));
+    } else {
+      let arr = [];
+      arr.push(order);
+      localStorage.setItem("order", JSON.stringify(arr));
     }
 
-
     Router.push("/orderSucess");
-
   };
 
   if (user) {
